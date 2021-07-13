@@ -2,7 +2,7 @@ package lt.tomasbarauskas.blog.entities;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "user_table")
-@NoArgsConstructor
+@Builder
 public class User {
 
     @Id
@@ -49,4 +49,8 @@ public class User {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Tolerate
+    public User() {
+    }
 }

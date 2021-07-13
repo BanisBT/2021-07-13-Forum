@@ -1,13 +1,11 @@
 package lt.tomasbarauskas.blog.entities;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "comment")
 public class Comment {
