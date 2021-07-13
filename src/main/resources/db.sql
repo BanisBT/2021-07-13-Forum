@@ -24,4 +24,5 @@ CREATE TABLE comment (
     created_at timestamp NOT NULL DEFAULT current_timestamp,
     updated_at timestamp NOT NULL DEFAULT current_timestamp
 --         ON UPDATE current_timestamp
-)
+);
+
