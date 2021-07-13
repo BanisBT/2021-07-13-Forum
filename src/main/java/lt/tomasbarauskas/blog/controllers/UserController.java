@@ -15,7 +15,6 @@ public class UserController {
 
     @GetMapping("/user")
     public String hello() {
-        userService.saveOrUpdate();
         return "Hello";
     }
 }

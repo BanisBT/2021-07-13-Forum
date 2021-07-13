@@ -14,6 +14,7 @@ CREATE TABLE user_table
     comment_id BIGINT REFERENCES comment(id),
     created_at timestamp             NOT NULL DEFAULT current_timestamp,
     updated_at timestamp             NOT NULL DEFAULT current_timestamp
+-- TODO insert created and updated time with db not JAVA
 --        ON UPDATE current_timestamp
 );
 
