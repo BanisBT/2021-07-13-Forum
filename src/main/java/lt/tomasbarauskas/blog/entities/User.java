@@ -20,6 +20,8 @@ public class User {
 
     private UserRole role = UserRole.REGULAR;
 
+    private Comment comment;
+
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
