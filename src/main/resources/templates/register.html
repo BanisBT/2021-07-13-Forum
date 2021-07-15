@@ -15,7 +15,7 @@
 <h1>Registration form</h1>
 <br>
 <div class="col">
-  <form method="post" th:object="${user}">
+  <form method="post" action="/register" th:object="${user}">
     <div class="form-group">
       <label>Username</label>
       <input type="text" name="username" placeholder="username.." th:field="*{username}">
