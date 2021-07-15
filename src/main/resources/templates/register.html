@@ -12,28 +12,28 @@
           crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>Registration form</h1>
+<h1 th:text="#{registration.form}">Registration form</h1>
 <br>
 <div class="col">
   <form method="post" action="/register" th:object="${user}">
     <div class="form-group">
-      <label>Username</label>
-      <input type="text" name="username" placeholder="username.." th:field="*{username}">
+      <label th:text="#{username}">Username</label>
+      <input type="text" name="username" th:placeholder="#{username}" th:field="*{username}">
     </div>
     <br>
     <div class="form-group">
-      <label>Password</label>
-      <input type="password" name="password" placeholder="password.." th:field="*{password}">
+      <label th:text="#{password}">Password</label>
+      <input type="password" name="password" th:placeholder="#{password}" th:field="*{password}">
     </div>
     <br>
     <div class="form-group">
-      <label>Name</label>
-      <input type="text" name="name" placeholder="name.." th:field="*{name}">
+      <label th:text="#{name}">Name</label>
+      <input type="text" name="name" th:placeholder="#{name}" th:field="*{name}">
     </div>
     <br>
     <div class="form-group">
-      <label>Surname</label>
-      <input type="text" name="surname" placeholder="surname.." th:field="*{surname}">
+      <label th:text="#{surname}">Surname</label>
+      <input type="text" name="surname" th:placeholder="#{surname}" th:field="*{surname}">
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Register</button>
