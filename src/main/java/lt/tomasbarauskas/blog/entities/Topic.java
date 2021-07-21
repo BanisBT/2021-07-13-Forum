@@ -20,6 +20,9 @@ public class Topic {
     @Column(name = "topic")
     private String topic;
 
+    @Column(name = "author")
+    private String author;
+
     @Transient
     private User user;
 

@@ -31,7 +31,22 @@ CREATE TABLE comment
 
 CREATE TABLE topic
 (
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    topic_tittle VARCHAR(255) NOT NULL,
-    topic TEXT
+    id           BIGSERIAL PRIMARY KEY NOT NULL,
+    topic_tittle VARCHAR(255)          NOT NULL,
+    topic        TEXT,
+    author       VARCHAR(255)
 );
+
+INSERT INTO topic (topic_tittle, topic, author)
+VALUES ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
+       ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
+       ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
+       ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
+       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote','A. Albonas'),
+       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote', 'A. Albonas'),
+       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote','A. Albonas'),
+       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote','M. Hakkinenas'),
+       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote','M. Hakkinenas'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla')
