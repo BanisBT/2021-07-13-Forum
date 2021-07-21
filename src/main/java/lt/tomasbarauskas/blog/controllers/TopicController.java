@@ -29,6 +29,7 @@ public class TopicController {
         return "addTopic";
     }
 
+    //TODO nesupratu kodel iki sio metodo niekaip neateina info is formos apie Topic. Handler exception del
     @PostMapping("addTopic")
     public String createTopic(Topic topic) {
         topicService.createTopic(topic);
