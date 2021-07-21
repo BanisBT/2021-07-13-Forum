@@ -13,7 +13,8 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">Logo</a>
@@ -39,18 +40,18 @@
 <h1 th:text="#{topic.list}">Topic list</h1>
 <div class="row">
     <div class="col">
-<table class="table">
-    <tr>
-        <th th:text="#{topic.id}">Id</th>
-        <th th:text="#{topic.tittle}">Topic Title</th>
-        <th th:text="#{topic.author}">Author</th>
-    </tr>
-    <tr th:each="topic: ${topics}">
-        <td th:text="${topic.id}"></td>
-        <td th:text="${topic.topicTitle}"></td>
-        <td th:text="${topic.author}"></td>
-    </tr>
-</table>
+        <table class="table">
+            <tr>
+                <th th:text="#{topic.id}">Id</th>
+                <th th:text="#{topic.tittle}">Topic Title</th>
+                <th th:text="#{topic.author}">Author</th>
+            </tr>
+            <tr th:each="topic: ${topics}">
+                <td th:text="${topic.id}"></td>
+                <td th:text="${topic.topicTitle}"></td>
+                <td th:text="${topic.author}"></td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

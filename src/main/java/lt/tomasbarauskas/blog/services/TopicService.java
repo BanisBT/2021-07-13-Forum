@@ -22,4 +22,8 @@ public class TopicService {
     public Topic getTopicById(Long id){
         return topicRepository.getById(id);
     }
+
+    public Topic createTopic(Topic topic) {
+        return topicRepository.save(topic);
+    }
 }

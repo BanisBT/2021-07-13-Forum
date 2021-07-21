@@ -1,5 +1,6 @@
 package lt.tomasbarauskas.blog.controllers;
 
+import lt.tomasbarauskas.blog.entities.Topic;
 import lt.tomasbarauskas.blog.entities.User;
 import lt.tomasbarauskas.blog.entities.UserRole;
 import lt.tomasbarauskas.blog.services.TopicService;
