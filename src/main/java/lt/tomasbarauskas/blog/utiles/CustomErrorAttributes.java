@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Component
 public class CustomErrorAttributes extends DefaultErrorAttributes {
+
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> customErrorAttributes = super.getErrorAttributes(webRequest, options);

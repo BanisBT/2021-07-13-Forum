@@ -17,13 +17,16 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "user_table_id")
+//    @ManyToOne
+//    @JoinColumn(name = "user_table_id")
+    @Transient
     private User user;
 
-    @Column(name = "created_at")
+    //@Column(name = "created_at")
+    @Transient
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    //@Column(name = "updated_at")
+    @Transient
     private LocalDateTime updatedAt;
 }

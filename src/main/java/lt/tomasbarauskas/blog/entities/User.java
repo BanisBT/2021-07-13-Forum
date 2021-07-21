@@ -36,18 +36,21 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    @Builder.Default
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "role")
+//    @Builder.Default
     private UserRole role = UserRole.REGULAR;
 
-    @OneToMany(mappedBy = "user")
+//    @OneToMany(mappedBy = "user")
+    @Transient
     private List<Comment> comments;
 
-    @Column(name = "created_at")
+    //@Column(name = "created_at")
+    @Transient
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    //@Column(name = "updated_at")
+    @Transient
     private LocalDateTime updatedAt;
 
     @Tolerate
