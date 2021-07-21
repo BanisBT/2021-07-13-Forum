@@ -18,4 +18,8 @@ public class TopicService {
     public List<Topic> getAllTopic(){
         return topicRepository.findAll();
     }
+
+    public Topic getTopicById(Long id){
+        return topicRepository.getById(id);
+    }
 }
