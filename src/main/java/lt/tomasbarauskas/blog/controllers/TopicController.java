@@ -1,6 +1,7 @@
 package lt.tomasbarauskas.blog.controllers;
 
 import lt.tomasbarauskas.blog.entities.Topic;
+import lt.tomasbarauskas.blog.exceptions.TopicNotFoundException;
 import lt.tomasbarauskas.blog.services.TopicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ public class TopicController {
         return "topic";
     }
 
-    @GetMapping("/addTopic")
+    @GetMapping("addTopic")
     public String getTopic(Model model) {
         model.addAttribute("topic", new Topic());
         return "addTopic";
@@ -34,5 +35,11 @@ public class TopicController {
     public String createTopic(Topic topic) {
         topicService.createTopic(topic);
         return "redirect:/";
+    }
+
+    @ExceptionHandler(TopicNotFoundException.class)
+    public String topicNotFound(TopicNotFoundException e, Model model){
+        model.addAttribute("topic", e.getTopicId());
+        return "topicNotFound";
     }
 }

@@ -1,12 +1,11 @@
 package lt.tomasbarauskas.blog.services;
 
 import lt.tomasbarauskas.blog.entities.Topic;
+import lt.tomasbarauskas.blog.exceptions.TopicNotFoundException;
 import lt.tomasbarauskas.blog.repositories.TopicRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class TopicService {
@@ -22,7 +21,7 @@ public class TopicService {
     }
 
     public Topic getTopicById(Long id){
-        return topicRepository.getById(id);
+        return topicRepository.getTopicById(id).orElseThrow(() ->new TopicNotFoundException(id));
     }
 
     public Topic createTopic(Topic topic) {
