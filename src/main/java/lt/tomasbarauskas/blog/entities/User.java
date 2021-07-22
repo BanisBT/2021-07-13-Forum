@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,6 +24,7 @@ public class User {
     private String username;
 
     @NotEmpty
+    @Size(min = 5)
     @Column(name = "password")
     private String password;
 
@@ -35,6 +34,7 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
+    @Email
     @Column(name = "email")
     private String email;
 

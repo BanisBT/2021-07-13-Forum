@@ -16,25 +16,20 @@
 <br>
 <div class="col">
   <form method="post" action="/register" th:object="${user}">
-    <div th:if="${#fields.hasErrors()}" class="alert alert-danger" role="alert">
-      <ul>
-        <li th:each="errors : ${#fields.errors()}" th:text="${errors}"></li>
-      </ul>
-    </div>
     <div class="form-group">
       <label th:text="#{username}">Username</label>
       <input type="text" name="username" class="form-control"
              th:placeholder="#{username}" th:errorclass="is-invalid"
              th:field="*{username}">
-      <p th:if="${#fields.hasErrors('username')}" class="text-danger small" th:text="#{error}"></p>
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small"></p>
     </div>
     <br>
     <div class="form-group">
       <label th:text="#{password}">Password</label>
       <input type="password" name="password" class="form-control"
-             th:placeholder="#{password}" th:errorclass="is-invalid small"
+             th:placeholder="#{password}" th:errorclass="is-invalid"
              th:field="*{password}">
-      <p th:if="${#fields.hasErrors('password')}" class="text-danger" th:text="#{error}"></p>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger small"></p>
     </div>
     <br>
     <div class="form-group">
@@ -52,7 +47,7 @@
       <input type="number" id="age" name="age" class="form-control"
              th:placeholder="#{age}" th:errorclass="is-invalid"
              th:field="*{age}">
-      <p th:if="${#fields.hasErrors('age')}" class="text-danger small" th:text="#{error}">Error</p>
+      <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="text-danger small">Error</p>
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Register</button>
