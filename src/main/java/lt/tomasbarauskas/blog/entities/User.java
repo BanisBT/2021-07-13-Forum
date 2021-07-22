@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,9 +21,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     @Column(name = "username")
     private String username;
 
+    @NotEmpty
     @Column(name = "password")
     private String password;
 
@@ -33,6 +38,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Min(18)
+    @Max(125)
     @Column(name = "age")
     private Integer age;
 

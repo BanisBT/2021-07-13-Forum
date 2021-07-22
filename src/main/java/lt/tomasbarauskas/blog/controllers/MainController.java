@@ -9,9 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping()
@@ -39,7 +42,11 @@ public class MainController {
     }
 
     @PostMapping("register")
-    public String createUser(User user) {
+    public String createUser(@Valid User user, BindingResult errors, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("user", user);
+            return "register";
+        }
         user.setRole(UserRole.REGULAR);
         userService.createUser(user);
         return "redirect:/";
