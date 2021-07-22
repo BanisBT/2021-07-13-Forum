@@ -3,6 +3,7 @@ package lt.tomasbarauskas.blog.controllers;
 import lt.tomasbarauskas.blog.entities.Topic;
 import lt.tomasbarauskas.blog.exceptions.TopicNotFoundException;
 import lt.tomasbarauskas.blog.services.TopicService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +36,5 @@ public class TopicController {
     public String createTopic(Topic topic) {
         topicService.createTopic(topic);
         return "redirect:/";
-    }
-
-    @ExceptionHandler(TopicNotFoundException.class)
-    public String topicNotFound(TopicNotFoundException e, Model model){
-        model.addAttribute("topic", e.getTopicId());
-        return "topicNotFound";
     }
 }
