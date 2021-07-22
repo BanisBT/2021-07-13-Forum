@@ -2,6 +2,8 @@ package lt.tomasbarauskas.blog.services;
 
 import lt.tomasbarauskas.blog.entities.Topic;
 import lt.tomasbarauskas.blog.repositories.TopicRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
-    public List<Topic> getAllTopic(){
-        return topicRepository.findAll();
+    public Page<Topic> getAllTopic(Pageable pageable){
+        return topicRepository.findAll(pageable);
     }
 
     public Topic getTopicById(Long id){

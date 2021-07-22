@@ -37,9 +37,10 @@
         </form>
     </div>
 </nav>
-<h1 th:text="#{topic.list}">Topic list</h1>
 <div class="row">
-    <div class="col">
+    <div class="col" th:if="${#lists.isEmpty(topics)}" th:text="#{topic.list.empty}">Topic list is empty</div>
+    <div class="col" th:unless="${#lists.isEmpty(topics)}">
+        <span th:text="#{topic.list}">Topics list</span>
         <table class="table">
             <tr>
                 <th th:text="#{topic.id}">Id</th>
@@ -53,6 +54,25 @@
             </tr>
         </table>
     </div>
-</div>
+    </div>
+        <nav aria-label="Page navigation"
+        th:if="${topics.totalPages > 1}">
+            <ul class="pagination">
+                <li class="page-item"
+                    th:classappend="${topics.number == 0} ? disabled">
+                    <a class="page-link"
+                       th:href="@{/(page=${topics.number - 1})}" th:text="#{previous}">Previous</a></li>
+
+                <li th:each="i : ${#numbers.sequence(0, topics.totalPages - 1)}" class="page-item"
+                    th:classappend="${i == topics.number} ? active">
+                    <a class="page-link" th:href="@{'/?page=' + ${i}}" th:text="${i + 1}"></a></li>
+
+                <li class="page-item"
+                    th:classappend="${topics.number == topics.totalPages - 1} ? disabled">
+                    <a class="page-link"
+                       th:href="@{/(page=${topics.number + 1})}" th:text="#{next}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
 </body>
 </html>

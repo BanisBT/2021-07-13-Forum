@@ -5,6 +5,8 @@ import lt.tomasbarauskas.blog.entities.User;
 import lt.tomasbarauskas.blog.entities.UserRole;
 import lt.tomasbarauskas.blog.services.TopicService;
 import lt.tomasbarauskas.blog.services.UserService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +27,12 @@ public class MainController {
     }
 
     @GetMapping()
-    public String mainPage(Model model) {
-        model.addAttribute("topics", topicService.getAllTopic());
+    public String mainPage(@PageableDefault(size = 5) Pageable pageable, Model model) {
+        model.addAttribute("topics", topicService.getAllTopic(pageable));
         return "home";
     }
 
-    @GetMapping("/register")
+    @GetMapping("register")
     public String register(Model model) {
         model.addAttribute("user", new User());
         return "register";

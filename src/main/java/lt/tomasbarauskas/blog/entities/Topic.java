@@ -1,6 +1,8 @@
 package lt.tomasbarauskas.blog.entities;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.Tolerate;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "topic")
+@Builder
 public class Topic {
 
     @Id
@@ -28,4 +31,8 @@ public class Topic {
 
     @Transient
     private List<Comment> comments;
+
+    @Tolerate
+    public Topic() {
+    }
 }
