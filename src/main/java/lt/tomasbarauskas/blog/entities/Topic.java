@@ -21,7 +21,7 @@ public class Topic {
     private String topicTitle;
 
     @Column(name = "topic")
-    private String topic;
+    private String topicText;
 
     @Column(name = "author")
     private String author;
