@@ -24,6 +24,10 @@ public class TopicService {
         return topicRepository.getTopicById(id).orElseThrow(() ->new TopicNotFoundException(id));
     }
 
+    public void deleteTopic(Topic topic){
+        topicRepository.delete(topic);
+    }
+
     public Topic createTopic(Topic topic) {
         return topicRepository.save(topic);
     }
