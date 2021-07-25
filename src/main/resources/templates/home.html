@@ -18,7 +18,7 @@
                 <td th:text="${topic.id}"></td>
                 <td th:text="${topic.topicTitle}"></td>
                 <td th:text="${topic.author}"></td>
-                <td><a th:href="@{'/topic/' + ${topic.id}}" th:text="#{view}">View</a></td>
+                <td><a th:href="@{'/topic/' + ${topic.id} + '/view'}" th:text="#{view}">View</a></td>
             </tr>
         </table>
     </div>

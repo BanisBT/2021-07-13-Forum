@@ -17,7 +17,7 @@ public class TopicController {
         this.topicService = topicService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/view")
     public String getTopicById(@PathVariable(required = false) Long id, Model model) {
         model.addAttribute("topic", topicService.getTopicById(id));
         return "topic/view";
@@ -29,9 +29,14 @@ public class TopicController {
         return "topic/create";
     }
 
+    @GetMapping("/{id}/edit")
+    public String editTopic(@PathVariable Long id, Model model) {
+        model.addAttribute("topic", topicService.getTopicById(id));
+        return "topic/edit";
+    }
+
     @PostMapping("/create")
     public String createTopic(Topic topic) {
-        topicService.createTopic(topic);
-        return "redirect:/";
+        return "redirect:/topic/" + topicService.createTopic(topic).getId() + "/view";
     }
 }

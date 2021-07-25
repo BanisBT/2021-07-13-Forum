@@ -30,7 +30,7 @@ public class MainController {
     }
 
     @GetMapping()
-    public String mainPage(@PageableDefault(size = 5) Pageable pageable, Model model) {
+    public String getTopics(@PageableDefault(size = 5) Pageable pageable, Model model) {
         model.addAttribute("topics", topicService.getAllTopic(pageable));
         return "home";
     }
