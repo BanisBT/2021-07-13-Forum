@@ -18,7 +18,7 @@ public class TopicController {
     }
 
     @GetMapping("/{id}")
-    public String getTopic(@PathVariable(required = false) Long id, Model model) {
+    public String getTopicById(@PathVariable(required = false) Long id, Model model) {
         model.addAttribute("topic", topicService.getTopicById(id));
         return "topic/view";
     }
