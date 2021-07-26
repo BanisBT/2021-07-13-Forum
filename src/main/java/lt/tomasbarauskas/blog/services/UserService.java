@@ -1,12 +1,16 @@
 package lt.tomasbarauskas.blog.services;
 
 import lt.tomasbarauskas.blog.entities.User;
+import lt.tomasbarauskas.blog.exceptions.UserNotFoundException;
 import lt.tomasbarauskas.blog.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
@@ -21,5 +25,10 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username).orElse(null);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.getUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 }

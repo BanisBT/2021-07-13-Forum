@@ -25,8 +25,8 @@ public class CustomControllerAdvice {
             model.addAttribute("topicId", ((TopicNotFoundException) e).getTopicId());
             return "error/topicNotFound";
         } else if (e instanceof UserNotFoundException) {
-            log.error("User with id - {} was not found", ((UserNotFoundException) e).getUserId());
-            model.addAttribute("userId", ((UserNotFoundException) e).getUserId());
+            log.error("User with username - {} was not found", ((UserNotFoundException) e).getUsername());
+            model.addAttribute("username", ((UserNotFoundException) e).getUsername());
             return "error/userNotFound";
         } else if (e instanceof CommentNotFoundException) {
             log.error("Comment with id - {} was not found", ((CommentNotFoundException) e).getCommentId());

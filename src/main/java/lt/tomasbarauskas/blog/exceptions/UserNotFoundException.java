@@ -2,13 +2,13 @@ package lt.tomasbarauskas.blog.exceptions;
 
 public class UserNotFoundException extends RuntimeException{
 
-    private final Long userId;
+    private final String username;
 
-    public UserNotFoundException(Long userId) {
-        this.userId = userId;
+    public UserNotFoundException(String username) {
+        this.username = username;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 }

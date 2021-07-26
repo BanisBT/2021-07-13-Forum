@@ -25,14 +25,15 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
         <a class="nav-link" th:href="@{/register}" th:text="#{register}"
-        th:classappend="${#request.getRequestURI().equals('/register')} ? active"></a>
+        th:classappend="${#request.getRequestURI().equals('/register')} ? active">Register</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/login}" th:text="#{login}"
+           th:classappend="${#request.getRequestURI().equals('/login')} ? active">Login</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" th:href="@{/}" th:text="#{home}"
         th:classappend="${#request.getRequestURI().equals('/')} ? active">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdown"

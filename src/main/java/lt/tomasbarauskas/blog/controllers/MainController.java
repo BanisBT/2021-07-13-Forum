@@ -73,7 +73,6 @@ public class MainController {
             log.info("Invalid user {}", user);
             return "register";
         }
-        user.setRole(UserRole.REGULAR);
         userService.createUser(user);
         log.info("User {} has been register", user);
         return "redirect:/";

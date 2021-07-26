@@ -5,13 +5,12 @@ DROP TABLE IF EXISTS topic;
 CREATE TABLE user_table
 (
     id       BIGSERIAL PRIMARY KEY NOT NULL,
-    username VARCHAR(255)          NOT NULL,
+    username VARCHAR(255) UNIQUE   NOT NULL,
     password VARCHAR(255)          NOT NULL,
     name     VARCHAR(255),
     surname  VARCHAR(255),
     email    VARCHAR(255),
     age      INTEGER
---     role       VARCHAR(15)           NOT NULL,
 --     comment_id BIGINT REFERENCES comment(id),
 --     created_at timestamp             NOT NULL DEFAULT current_timestamp,
 --     updated_at timestamp             NOT NULL DEFAULT current_timestamp
@@ -37,16 +36,27 @@ CREATE TABLE topic
     author       VARCHAR(255)
 );
 
+CREATE TABLE role
+(
+    id   BIGSERIAL PRIMARY KEY NOT NULL,
+    name VARCHAR(50) UNIQUE    NOT NULL
+);
+
+CREATE TABLE user_role (
+    user_id BIGINT REFERENCES user_table(id),
+    role_id BIGINT REFERENCES role(id)
+);
+
 INSERT INTO topic (topic_tittle, topic, author)
 VALUES ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
        ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
        ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
        ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote', 'unknown'),
-       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote','A. Albonas'),
        ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote', 'A. Albonas'),
-       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote','A. Albonas'),
-       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote','M. Hakkinenas'),
-       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote','M. Hakkinenas'),
-       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla'),
-       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla'),
-       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote','D. Hilla')
+       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote', 'A. Albonas'),
+       ('A. Albonas: Verstappenas galėjo elgtis agresyviau', 'Ka apie tai manote', 'A. Albonas'),
+       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote', 'M. Hakkinenas'),
+       ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote', 'M. Hakkinenas'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla'),
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla')
