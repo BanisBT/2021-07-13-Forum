@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head(#{login})"></head>
+<body>
+<header th:replace="fragments/layout :: header"></header>
+
+<h1 th:text="#{login.form}">Login form</h1>
+<br>
+<div class="col">
+  <div class="col-md-5 col-sm-8">
+  <form method="post" action="/login" th:object="${user}">
+    <div class="form-group">
+      <label th:text="#{username}">Username</label>
+      <input type="text" name="username" class="form-control"
+             th:placeholder="#{username}" th:errorclass="is-invalid"
+             th:field="*{username}">
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-danger small"></p>
+    </div>
+    <br>
+    <div class="form-group">
+      <label th:text="#{password}">Password</label>
+      <input type="password" name="password" class="form-control"
+             th:placeholder="#{password}" th:errorclass="is-invalid"
+             th:field="*{password}">
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger small"></p>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" th:text="#{button.login}">Login</button>
+    <a th:href="@{/}" th:text="#{button.cancel}" class="btn btn-outline-primary">Cancel</a>
+  </form>
+  </div>
+</div>
+</body>
+</html>

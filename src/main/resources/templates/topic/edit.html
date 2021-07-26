@@ -33,7 +33,7 @@
             <br>
             <button type="submit" class="btn btn-primary" th:text="#{button.save}">Save</button>
             <a th:href="@{/}" th:text="#{button.cancel}" class="btn btn-outline-primary">Cancel</a>
-            <a th:text="#{button.delete}" th:href="@{/topic/{id}/delete(id = ${topic.id})}" class="text-danger">Delete</a>
+            <a th:text="#{button.delete}" th:href="@{/topic/{id}/delete(id = ${topic.id})}" class="btn btn-outline-danger">Delete</a>
         </form>
     </div>
 </div>

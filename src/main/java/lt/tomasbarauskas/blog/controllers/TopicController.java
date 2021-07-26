@@ -1,12 +1,13 @@
 package lt.tomasbarauskas.blog.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import lt.tomasbarauskas.blog.entities.Topic;
 import lt.tomasbarauskas.blog.services.TopicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @Controller
 @RequestMapping("topic/")
 public class TopicController {
@@ -43,6 +44,7 @@ public class TopicController {
 
     @PostMapping("/create")
     public String createTopic(Topic topic) {
+        log.info("Topic {} has been created", topic);
         return "redirect:/topic/" + topicService.createTopic(topic).getId() + "/view";
     }
 }

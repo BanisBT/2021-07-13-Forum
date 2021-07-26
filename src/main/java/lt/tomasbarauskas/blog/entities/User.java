@@ -38,7 +38,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Min(18)
+    @Min(value = 18, message = "Age must be more then {}")
     @Max(125)
     @Column(name = "age")
     private Integer age;

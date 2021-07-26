@@ -1,6 +1,6 @@
 package lt.tomasbarauskas.blog.controllers;
 
-import lt.tomasbarauskas.blog.entities.Topic;
+import lombok.extern.slf4j.Slf4j;
 import lt.tomasbarauskas.blog.entities.User;
 import lt.tomasbarauskas.blog.entities.UserRole;
 import lt.tomasbarauskas.blog.services.TopicService;
@@ -10,12 +10,12 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping()
 public class MainController {
@@ -41,14 +41,41 @@ public class MainController {
         return "register";
     }
 
+    @GetMapping("login")
+    public String login(Model model) {
+        model.addAttribute("user", new User());
+        return "login";
+    }
+
+    @PostMapping("login")
+    public String login(@Valid User user, BindingResult bindingResult, Model model) {
+        User existingUser = userService.getUserByUsername(user.getUsername());
+
+        if (existingUser != null) {
+            if (existingUser.getPassword().equals(user.getPassword())) {
+                model.addAttribute("user", existingUser);
+                return "redirect:/";
+            } else {
+                bindingResult.addError(new ObjectError("user", String.format("Password for user '%s' is incorrect", user.getUsername())));
+                log.warn("Entered password for User - {} is incorrect", user);
+            }
+        } else {
+            bindingResult.addError(new ObjectError("user", String.format("User with username '%s' does not exist", user.getUsername())));
+            log.warn("User with username - {} does not exist", user.getUsername());
+        }
+        return "login";
+    }
+
     @PostMapping("register")
     public String createUser(@Valid User user, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("user", user);
+            log.info("Invalid user {}", user);
             return "register";
         }
         user.setRole(UserRole.REGULAR);
         userService.createUser(user);
+        log.info("User {} has been register", user);
         return "redirect:/";
     }
 }
