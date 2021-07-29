@@ -2,7 +2,6 @@ package lt.tomasbarauskas.blog.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import lt.tomasbarauskas.blog.entities.User;
-import lt.tomasbarauskas.blog.entities.UserRole;
 import lt.tomasbarauskas.blog.services.TopicService;
 import lt.tomasbarauskas.blog.services.UserService;
 import org.springframework.data.domain.Pageable;

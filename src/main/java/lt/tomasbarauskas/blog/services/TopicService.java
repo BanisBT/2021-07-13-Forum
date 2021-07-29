@@ -16,15 +16,15 @@ public class TopicService {
         this.topicRepository = topicRepository;
     }
 
-    public Page<Topic> getAllTopic(Pageable pageable){
+    public Page<Topic> getAllTopic(Pageable pageable) {
         return topicRepository.findAll(pageable);
     }
 
-    public Topic getTopicById(Long id){
-        return topicRepository.getTopicById(id).orElseThrow(() ->new TopicNotFoundException(id));
+    public Topic getTopicById(Long id) {
+        return topicRepository.getTopicById(id).orElseThrow(() -> new TopicNotFoundException(id));
     }
 
-    public void deleteTopic(Topic topic){
+    public void deleteTopic(Topic topic) {
         topicRepository.delete(topic);
     }
 

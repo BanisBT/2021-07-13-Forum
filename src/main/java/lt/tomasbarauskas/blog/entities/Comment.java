@@ -1,6 +1,8 @@
 package lt.tomasbarauskas.blog.entities;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,16 +19,19 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_table_id")
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "user_table_id")
     private User user;
 
-    //@Column(name = "created_at")
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    //@Column(name = "updated_at")
-    @Transient
+    @Column(name = "updated_at")
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
