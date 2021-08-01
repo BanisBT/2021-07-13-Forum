@@ -6,7 +6,6 @@ import lt.tomasbarauskas.blog.services.CommentService;
 import lt.tomasbarauskas.blog.services.TopicService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,21 +31,22 @@ public class TopicController {
     public String getTopicById(@PageableDefault(size = 3) Pageable pageable,
                                @PathVariable(required = false) Long id, Model model) {
         model.addAttribute("topic", topicService.getTopicById(id));
+//        TODO nesuprantu kodel nepasieke Comments list kaip Page?
         model.addAttribute("commentsPageable", commentService.getAllCommentByTopicId(id, pageable));
         return "topic/view";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/create")
-    public String getTopic(Model model,HttpSession session) {
+    public String getTopic(Model model, HttpSession session) {
         model.addAttribute("topic", new Topic());
         return "topic/create";
     }
 
+    //    TODO user "Role" ateina iki metodo ir HTML matoma
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/edit")
-    public String editTopic(@PathVariable Long id, Model model,
-    HttpSession session) {
+    public String editTopic(@PathVariable Long id, Model model) {
         model.addAttribute("topic", topicService.getTopicById(id));
         return "topic/edit";
     }
@@ -58,6 +58,7 @@ public class TopicController {
         return "redirect:/";
     }
 
+    //    TODO user "Role" neateina iki metodo
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public String createTopic(Topic topic) {
