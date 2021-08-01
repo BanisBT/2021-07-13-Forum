@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:replace="fragments/layout :: head(${topic.topicTitle})"></head>
 <body>
 <header th:replace="fragments/layout :: header"></header>
@@ -10,49 +13,48 @@
 <br>
 <div th:text="${topic.author}"></div>
 <br>
-<h1 th:text="#{comment.tittle}">Topic list</h1>
-<!--<div class="row">-->
-<!--  <div class="col">-->
-<!--    <table class="table">-->
-<!--      <tr>-->
-<!--        <th th:text="#{topic.id}">Id</th>-->
-<!--        <th th:text="#{topic.tittle}">Topic Title</th>-->
-<!--        <th th:text="#{topic.author}">Author</th>-->
-<!--      </tr>-->
-<!--      <tr th:each="topic: ${topics}">-->
-<!--        <td th:text="${topic.id}"></td>-->
-<!--        <td th:text="${topic.topicTitle}"></td>-->
-<!--        <td th:text="${topic.author}"></td>-->
-<!--      </tr>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<h1 th:text="#{comment.add.comment}">Add comment</h1>-->
-<!--<br>-->
-<!--<div class="col">-->
-<!--  <form method="post" action="/" th:object="${user}">-->
-<!--    <div class="form-group">-->
-<!--      <label th:text="#{username}">Username</label>-->
-<!--      <input type="text" name="username" th:placeholder="#{username}" th:field="*{username}">-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <div class="form-group">-->
-<!--      <label th:text="#{password}">Password</label>-->
-<!--      <input type="password" name="password" th:placeholder="#{password}" th:field="*{password}">-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <div class="form-group">-->
-<!--      <label th:text="#{name}">Name</label>-->
-<!--      <input type="text" name="name" th:placeholder="#{name}" th:field="*{name}">-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <div class="form-group">-->
-<!--      <label th:text="#{surname}">Surname</label>-->
-<!--      <input type="text" name="surname" th:placeholder="#{surname}" th:field="*{surname}">-->
-<!--    </div>-->
-<!--    <br>-->
-<!--    <button type="submit" class="btn btn-primary">Register</button>-->
-<!--  </form>-->
-<!--</div>-->
+<div>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/topic/' + ${topic.id} + '/edit'}" th:text="#{topic.edit.tittle}" class="btn btn-outline-dark">Edit Topic</a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/topic/' + ${topic.id} + '/view'}" th:text="#{topic.delete}" class="btn btn-outline-danger">Delete Topic</a>
+</div>
+<div class="row">
+    <div class="col" th:if="${#lists.isEmpty(topic.getComments())}" th:text="#{comment.list.empty}">Comments list is empty</div>
+    <div class="col" th:unless="${#lists.isEmpty(topic.getComments())}">
+        <span th:text="#{comment.list}">Comments list</span>
+        <table class="table">
+            <tr>
+                <th th:text="#{comment.author}">Author</th>
+                <th th:text="#{comment}">Comment</th>
+                <th th:text="#{comment.data.and.time}">Comment date</th>
+            </tr>
+            <tr th:each="comment: ${topic.getComments()}">
+                <td th:text="${comment.getUser().getUsername()}"></td>
+                <td th:text="${comment.getText()}"></td>
+                <td th:text="${comment.getCreatedAt()}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<nav aria-label="Page navigation"
+     th:if="${commentsPageable.totalPages > 1}">
+    <ul class="pagination">
+        <li class="page-item"
+            th:classappend="${commentsPageable.number == 0} ? disabled">
+            <a class="page-link"
+               th:href="@{/(page=${commentsPageable.number - 1})}" th:text="#{previous}">Previous</a></li>
+
+        <li th:each="i : ${#numbers.sequence(0, commentsPageable.totalPages - 1)}" class="page-item"
+            th:classappend="${i == commentsPageable.number} ? active">
+            <a class="page-link" th:href="@{'/?page=' + ${i}}" th:text="${i + 1}"></a></li>
+
+        <li class="page-item"
+            th:classappend="${commentsPageable.number == commentsPageable.totalPages - 1} ? disabled">
+            <a class="page-link"
+               th:href="@{/(page=${commentsPageable.number + 1})}" th:text="#{next}">Next</a></li>
+    </ul>
+</nav>
+</div>
 </body>
 </html>

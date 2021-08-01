@@ -6,12 +6,14 @@ import lt.tomasbarauskas.blog.services.TopicService;
 import lt.tomasbarauskas.blog.services.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -29,7 +31,9 @@ public class MainController {
     }
 
     @GetMapping()
-    public String getTopics(@PageableDefault(size = 5) Pageable pageable, Model model) {
+    public String getTopics(@PageableDefault(size = 5) Pageable pageable,
+                            Model model,
+                            @AuthenticationPrincipal User user) {
         model.addAttribute("topics", topicService.getAllTopic(pageable));
         return "home";
     }
@@ -47,12 +51,12 @@ public class MainController {
     }
 
     @PostMapping("login")
-    public String login(@Valid User user, BindingResult bindingResult, Model model) {
+    public String login(@Valid User user, BindingResult bindingResult, HttpSession session) {
         User existingUser = userService.getUserByUsername(user.getUsername());
 
         if (existingUser != null) {
             if (existingUser.getPassword().equals(user.getPassword())) {
-                model.addAttribute("user", existingUser);
+                session.setAttribute("user", existingUser);
                 return "redirect:/";
             } else {
                 bindingResult.addError(new ObjectError("user", String.format("Password for user '%s' is incorrect", user.getUsername())));

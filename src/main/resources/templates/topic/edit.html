@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:replace="fragments/layout :: head(#{topic.edit.tittle})"></head>
 <body>
 <header th:replace="fragments/layout :: header"></header>
@@ -11,7 +14,7 @@
             <div class="form-group">
                 <label th:text="#{topic.id}">Topic ID</label>
                 <input type="number" name="id" class="form-control"
-                       th:placeholder="#{topic.id} + '....' " th:field="*{id}">
+                       th:placeholder="#{topic.id} + '....' " th:field="*{id}" disabled>
             </div>
             <div class="form-group">
                 <label th:text="#{topic.tittle}">Topic tittle</label>

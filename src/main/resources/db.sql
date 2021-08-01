@@ -19,12 +19,12 @@ CREATE TABLE user_table
 
 CREATE TABLE topic
 (
-    id            BIGSERIAL PRIMARY KEY NOT NULL,
-    topic_tittle  VARCHAR(255)          NOT NULL,
-    topic_text    TEXT,
-    author        VARCHAR(255),
-    created_at    timestamp             NOT NULL DEFAULT current_timestamp,
-    updated_at    timestamp             NOT NULL DEFAULT current_timestamp
+    id           BIGSERIAL PRIMARY KEY NOT NULL,
+    topic_tittle VARCHAR(255)          NOT NULL,
+    topic_text   TEXT,
+    author       VARCHAR(255),
+    created_at   timestamp             NOT NULL DEFAULT current_timestamp,
+    updated_at   timestamp             NOT NULL DEFAULT current_timestamp
 );
 
 CREATE TABLE comment
@@ -76,4 +76,14 @@ VALUES ('Didžiosios Britanijos GP: įdomioji statistika', 'Ka apie tai manote',
        ('M. Hakkinenas: tai buvo grynai lenktyninis incidentas', 'Ka apie tai manote', 'M. Hakkinenas'),
        ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla'),
        ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla'),
-       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla')
+       ('D. Hillas: tai buvo pareiškimas apie ketinimus', 'Ka apie tai manote', 'D. Hilla');
+
+INSERT INTO comment (user_table_id, topic_id, text)
+VALUES (2, 1, 'Gerai viskas'),
+       (2, 1, 'Gerai viskas bus'),
+       (2, 1, 'Gerai viskas bus eina'),
+       (2, 1, 'Gerai viskas bus eina'),
+       (2, 1, 'Gerai viskas bus eina'),
+       (2, 1, 'Gerai viskas bus eina'),
+       (1,1,'Admin komentaras'),
+       (2,2,'User 2-tro komentaras')

@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "topic")
-//@Builder
+@Builder
 public class Topic {
 
     @Id
@@ -29,7 +29,7 @@ public class Topic {
     @Column(name = "author")
     private String author;
 
-    @OneToMany
+    @OneToMany(mappedBy = "topic")
     private List<Comment> comments;
 
     @Column(name = "created_at")
@@ -40,7 +40,7 @@ public class Topic {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-//    @Tolerate
-//    public Topic() {
-//    }
+    @Tolerate
+    public Topic() {
+    }
 }
