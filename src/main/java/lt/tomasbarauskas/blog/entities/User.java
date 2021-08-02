@@ -1,15 +1,13 @@
 package lt.tomasbarauskas.blog.entities;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Tolerate;
+import lt.tomasbarauskas.blog.dtos.UserRegistrationDTO;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Set;
@@ -17,36 +15,27 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "user_table")
-@Builder
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
     @Column(name = "username")
     private String username;
 
-    @NotEmpty
-    @Size(min = 5)
     @Column(name = "password")
     private String password;
 
-    @NotBlank
     @Column(name = "name")
     private String name;
 
-    @NotBlank
     @Column(name = "surname")
     private String surname;
 
-    @Email
     @Column(name = "email")
     private String email;
 
-    @Min(value = 18, message = "Age must be more then {}")
-    @Max(125)
     @Column(name = "age")
     private Integer age;
 
@@ -66,6 +55,15 @@ public class User implements UserDetails {
 
     @Tolerate
     public User() {
+    }
+
+    public User(UserRegistrationDTO userRegistrationDTO) {
+        this.username = userRegistrationDTO.getUsername();
+        this.password = userRegistrationDTO.getPassword();
+        this.name = userRegistrationDTO.getName();
+        this.surname = userRegistrationDTO.getSurname();
+        this.email = userRegistrationDTO.getEmail();
+        this.age = userRegistrationDTO.getAge();
     }
 
     @Override

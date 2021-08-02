@@ -1,18 +1,20 @@
 package lt.tomasbarauskas.blog.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import lt.tomasbarauskas.blog.dtos.UserRegistrationDTO;
 import lt.tomasbarauskas.blog.entities.User;
 import lt.tomasbarauskas.blog.services.TopicService;
 import lt.tomasbarauskas.blog.services.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -32,15 +34,14 @@ public class MainController {
 
     @GetMapping()
     public String getTopics(@PageableDefault(size = 5) Pageable pageable,
-                            Model model,
-                            @AuthenticationPrincipal User user) {
+                            Model model) {
         model.addAttribute("topics", topicService.getAllTopic(pageable));
         return "home";
     }
 
     @GetMapping("register")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserRegistrationDTO());
         return "register";
     }
 
@@ -48,6 +49,12 @@ public class MainController {
     public String login(Model model) {
         model.addAttribute("user", new User());
         return "login";
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpServletRequest request) throws ServletException {
+        request.logout();
+        return "redirect:/";
     }
 
     @PostMapping("login")
@@ -59,25 +66,36 @@ public class MainController {
                 session.setAttribute("user", existingUser);
                 return "redirect:/";
             } else {
-                bindingResult.addError(new ObjectError("user", String.format("Password for user '%s' is incorrect", user.getUsername())));
+                bindingResult.addError(new ObjectError("user",
+                        String.format("Password for user '%s' is incorrect", user.getUsername())));
                 log.warn("Entered password for User - {} is incorrect", user);
             }
         } else {
-            bindingResult.addError(new ObjectError("user", String.format("User with username '%s' does not exist", user.getUsername())));
+            bindingResult.addError(new ObjectError("user",
+                    String.format("User with username '%s' does not exist", user.getUsername())));
             log.warn("User with username - {} does not exist", user.getUsername());
         }
         return "login";
     }
 
     @PostMapping("register")
-    public String createUser(@Valid User user, BindingResult errors, Model model) {
+    public String createUser(@Valid UserRegistrationDTO userRegistrationDTO, BindingResult errors, Model model) {
         if (errors.hasErrors()) {
-            model.addAttribute("user", user);
-            log.info("Invalid user {}", user);
+            model.addAttribute("user", userRegistrationDTO);
+            log.info("Invalid user {}", userRegistrationDTO);
             return "register";
         }
-        userService.createUser(user);
-        log.info("User {} has been register", user);
+        if (userRegistrationDTO.getPassword().equals(userRegistrationDTO.getPasswordConfirm())) {
+            errors.addError(new ObjectError("user", "Password do not match"));
+        }
+        if (userService.createUser(userRegistrationDTO) == null) {
+            errors.addError(new ObjectError("user",
+                    String.format("User with username %s already exist", userRegistrationDTO.getUsername())));
+            return "register";
+        }
+
+        userService.createUser(userRegistrationDTO);
+        log.info("User {} has been register", userRegistrationDTO);
         return "redirect:/";
     }
 }
